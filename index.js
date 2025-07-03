@@ -1,41 +1,5 @@
-/*
-const TelegramApi = require('node-telegram-bot-api')
-
-const token ='7716276952:AAHmKg8OleXxqAZKvdgYIghP6hTZQEP4ojk'
-
-const bot =  new TelegramApi(token, {polling: true})
-
-
-
-const start = () => {
-
-bot.setMyCommands([
-    {command: '/start', description: 'Начальное приветствие'},
-    {command: '/info', description: 'Получить информацию о пользователе'}
-])
-
-bot.on('message', async msg => {
-    const text = msg.text;
-    const chatId = msg.chat.id;
-
-    if(text === '/start'){
-         await bot.sendSticker(chatId, 'https://cdn2.combot.org/sdarogishlyondry_by_fstikbot/webp/2xe29c82efb88f.webp') 
-         return bot.sendMessage(chatId, `Добро пожаловать в телеграм бота расписания ЛГУ`)
-    }
-    if (text === '/info'){
-         return bot.sendMessage(chatId, `Тебя зовут ${msg.from.first_name} ${msg.from.last_name}`)
-    }
-    
-    return bot.sendMessage (chatId, 'Я тебя не понимаю, попробуй еще раз!')
-    })
-}
-
-start()
-*/
-
-
 const TelegramApi = require('node-telegram-bot-api');
-const token = '7716276952:AAHmKg8OleXxqAZKvdgYIghP6hTZQEP4ojk'; // ← Не забудь заменить!
+const token = '7716276952:AAHmKg8OleXxqAZKvdgYIghP6hTZQEP4ojk'; 
 const bot = new TelegramApi(token, { polling: true });
 
 // Для работы с файлами
@@ -112,6 +76,8 @@ bot.on('callback_query', async (query) => {
     const chatId = query.message.chat.id;
     const data = query.data;
     console.log(` Получен callback от chatId=${chatId}, данные: ${data}`);
+
+    await bot.answerCallbackQuery(query.id);
 
     const currentUser = userState[chatId];
 
